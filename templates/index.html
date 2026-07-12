@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Fraud Detection</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f2f2f2;
+            padding:30px;
+        }
+
+        .container{
+            width:700px;
+            margin:auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        label{
+            display:block;
+            margin-top:10px;
+            font-weight:bold;
+        }
+
+        input{
+            width:100%;
+            padding:8px;
+            margin-top:5px;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            border:none;
+            cursor:pointer;
+            color:white;
+            font-size:16px;
+            margin-top:10px;
+        }
+
+        .predict-btn{
+            background:#007BFF;
+        }
+
+        .predict-btn:hover{
+            background:#0056b3;
+        }
+
+        .clear-btn{
+            background:gray;
+        }
+
+        .clear-btn:hover{
+            background:#555;
+        }
+
+        h3{
+            text-align:center;
+            margin-top:20px;
+            padding:10px;
+            border-radius:5px;
+        }
+
+        .fraud{
+            color:white;
+            background:#dc3545;
+        }
+
+        .legitimate{
+            color:white;
+            background:#28a745;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Credit Card Fraud Detection</h2>
+
+    <form action="/predict" method="POST">
+
+        <label>Time</label>
+        <input type="number" step="any" name="Time" required>
+
+        {% for i in range(1,29) %}
+            <label>V{{i}}</label>
+            <input type="number" step="any" name="V{{i}}" required>
+        {% endfor %}
+
+        <label>Amount</label>
+        <input type="number" step="any" name="Amount" required>
+
+        <button type="submit" class="predict-btn">
+            Predict
+        </button>
+
+        <button type="reset" class="clear-btn">
+            Clear
+        </button>
+
+    </form>
+
+    {% if prediction %}
+        {% if "Fraudulent" in prediction %}
+            <h3 class="fraud">{{ prediction }}</h3>
+        {% else %}
+            <h3 class="legitimate">{{ prediction }}</h3>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+</body>
+</html>
